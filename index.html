@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPO Insurance Plan Quotes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f7fafc;
+        }
+        .container {
+            max-width: 900px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+
+    <div class="container bg-white rounded-lg shadow-xl p-8 space-y-8">
+        <header class="text-center">
+            <h1 class="text-3xl font-bold text-gray-800">EPO Insurance Plan Quotes</h1>
+            <p class="mt-2 text-gray-500">Answer a few questions to see your personalized plan details and monthly premiums.</p>
+        </header>
+
+        <!-- Initial Form Section -->
+        <section id="form-section" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Age Dropdown -->
+                <div>
+                    <label for="age" class="block text-sm font-medium text-gray-700">Age Range</label>
+                    <select id="age" name="age" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md shadow-sm">
+                        <option value="18-29">18-29</option>
+                        <option value="30-44">30-44</option>
+                        <option value="45-54">45-54</option>
+                        <option value="55-64">55-64</option>
+                    </select>
+                </div>
+
+                <!-- Deductible Dropdown -->
+                <div>
+                    <label for="deductible" class="block text-sm font-medium text-gray-700">Deductible</label>
+                    <select id="deductible" name="deductible" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md shadow-sm">
+                        <option value="500">ΕΡΟ $500</option>
+                        <option value="750">ΕΡΟ $750</option>
+                        <option value="1000">ΕΡΟ $1,000</option>
+                        <option value="1500">ΕΡΟ $1,500</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Spouse/Children Radios -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Spouse Radio Buttons -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Do you have a spouse?</label>
+                    <div class="mt-1 space-y-2">
+                        <div class="flex items-center">
+                            <input id="spouse-yes" name="spouse" type="radio" value="Yes" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300">
+                            <label for="spouse-yes" class="ml-3 block text-sm font-medium text-gray-700">Yes</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="spouse-no" name="spouse" type="radio" value="No" checked class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300">
+                            <label for="spouse-no" class="ml-3 block text-sm font-medium text-gray-700">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Children Radio Buttons -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Do you have children?</label>
+                    <div class="mt-1 space-y-2">
+                        <div class="flex items-center">
+                            <input id="children-yes" name="children" type="radio" value="Yes" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300">
+                            <label for="children-yes" class="ml-3 block text-sm font-medium text-gray-700">Yes</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="children-no" name="children" type="radio" value="No" checked class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300">
+                            <label for="children-no" class="ml-3 block text-sm font-medium text-gray-700">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center pt-4">
+                <button id="analyze-button" class="w-full md:w-auto px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Analyze My Plan
+                </button>
+            </div>
+        </section>
+
+        <!-- Results Section (Initially Hidden) -->
+        <section id="results-section" class="hidden space-y-6">
+            <div class="text-center">
+                <h2 class="text-2xl font-bold text-gray-800">Your Personalized Plan Summary</h2>
+                <div id="summary-info" class="mt-2 text-gray-600"></div>
+            </div>
+
+            <!-- Monthly Premiums -->
+            <div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Monthly Premiums (Cigna EPO In-Network)</h3>
+                <div id="premiums-display" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Premiums will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <!-- Plan Benefits -->
+            <div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Key Benefits</h3>
+                <div id="benefits-display" class="bg-gray-50 rounded-lg p-4 divide-y divide-gray-200">
+                    <!-- Benefits will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <div class="text-center pt-4">
+                <button id="start-over-button" class="w-full md:w-auto px-6 py-3 border border-gray-300 text-base font-medium rounded-md shadow-sm text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Start Over
+                </button>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        const planData = {
+            rates: {
+                "500": {
+                    "18-29": {
+                        "Employee": 429,
+                        "Employee + Spouse": 789,
+                        "Employee + Child(ren)": 779,
+                        "Family": 1059
+                    },
+                    "30-44": {
+                        "Employee": 489,
+                        "Employee + Spouse": 829,
+                        "Employee + Child(ren)": 819,
+                        "Family": 1119
+                    },
+                    "45-54": {
+                        "Employee": 519,
+                        "Employee + Spouse": 869,
+                        "Employee + Child(ren)": 859,
+                        "Family": 1169
+                    },
+                    "55-64": {
+                        "Employee": 569,
+                        "Employee + Spouse": 889,
+                        "Employee + Child(ren)": 869,
+                        "Family": 1209
+                    }
+                },
+                "750": {
+                    "18-29": {
+                        "Employee": 409,
+                        "Employee + Spouse": 769,
+                        "Employee + Child(ren)": 759,
+                        "Family": 1039
+                    },
+                    "30-44": {
+                        "Employee": 469,
+                        "Employee + Spouse": 799,
+                        "Employee + Child(ren)": 789,
+                        "Family": 1089
+                    },
+                    "45-54": {
+                        "Employee": 499,
+                        "Employee + Spouse": 839,
+                        "Employee + Child(ren)": 829,
+                        "Family": 1149
+                    },
+                    "55-64": {
+                        "Employee": 549,
+                        "Employee + Spouse": 869,
+                        "Employee + Child(ren)": 849,
+                        "Family": 1169
+                    }
+                },
+                "1000": {
+                    "18-29": {
+                        "Employee": 389,
+                        "Employee + Spouse": 749,
+                        "Employee + Child(ren)": 739,
+                        "Family": 1019
+                    },
+                    "30-44": {
+                        "Employee": 449,
+                        "Employee + Spouse": 779,
+                        "Employee + Child(ren)": 769,
+                        "Family": 1059
+                    },
+                    "45-54": {
+                        "Employee": 479,
+                        "Employee + Spouse": 819,
+                        "Employee + Child(ren)": 809,
+                        "Family": 1129
+                    },
+                    "55-64": {
+                        "Employee": 529,
+                        "Employee + Spouse": 849,
+                        "Employee + Child(ren)": 839,
+                        "Family": 1149
+                    }
+                },
+                "1500": {
+                    "18-29": {
+                        "Employee": 369,
+                        "Employee + Spouse": 729,
+                        "Employee + Child(ren)": 719,
+                        "Family": 999
+                    },
+                    "30-44": {
+                        "Employee": 419,
+                        "Employee + Spouse": 759,
+                        "Employee + Child(ren)": 743,
+                        "Family": 1039
+                    },
+                    "45-54": {
+                        "Employee": 459,
+                        "Employee + Spouse": 809,
+                        "Employee + Child(ren)": 789,
+                        "Family": 1109
+                    },
+                    "55-64": {
+                        "Employee": 509,
+                        "Employee + Spouse": 839,
+                        "Employee + Child(ren)": 799,
+                        "Family": 1129
+                    }
+                }
+            },
+            benefits: [
+                { service: "PCP Office Visit", cost: "$50 Copay (After Deductible)", notes: "" },
+                { service: "Specialist Office Visit (No Referral Needed)", cost: "$50 Copay (After Deductible)", notes: "" },
+                { service: "Urgent Care Office Visit", cost: "$50 Copay (After Deductible)", notes: "" },
+                { service: "Surgery Performed in the Office", cost: "See Outpatient Surgery", notes: "" },
+                { service: "Chiropractic Care", cost: "$50 Copay (After Deductible)", notes: "12 visits per calendar year maximum." },
+                { service: "Therapies: Physical, Speech, Occupational, Cardiac, & Resp", cost: "$50 Copay/Visit (After Deductible)", notes: "16 visits per calendar year maximum combined." },
+                { service: "Labs", cost: "$25 Copay", notes: "" },
+                { service: "X-rays", cost: "$50 Copay", notes: "" },
+                { service: "Diagnostic Testing/Advanced Imaging (Pre-Certification Required)", cost: "$200 Copay", notes: "" },
+                { service: "Telemedicine through OurLiveDoc ONLY", cost: "$0 Copay", notes: "Unlimited Visits." },
+                { service: "Emergency Room Care", cost: "$1,000 Copay (After Deductible)", notes: "For a true medical emergency, any provider may be used." },
+                { service: "Ambulance", cost: "$250 Copay (After Deductible)", notes: "" },
+                { service: "Inpatient Hospital Care Facility or Partial Hospitalization (Pre-certification Required)", cost: "$2,500 Copay/Admission (After Deductible)", notes: "" },
+                { service: "Inpatient Surgical Services Associated/Incidental Inpatient Services", cost: "$2,500 Copay/Surgery (After Deductible)", notes: "Includes Anesthesia, Pathology, Physician Services, and any other incurred services." },
+                { service: "Inpatient Skilled Nursing Facility", cost: "$50 Copay/Day (After Deductible)", notes: "" },
+                { service: "Inpatient Rehabilitation Facility", cost: "$50 Copay/Day (After Deductible)", notes: "" },
+                { service: "Hospice", cost: "$0 Copay (After Deductible)", notes: "30-day limit per Lifetime." },
+                { service: "Organ Transplant", cost: "$2,500 Copay/Admission (After Deductible)", notes: "" },
+                { service: "Outpatient Surgical Services (Outpatient Hospital, Surgery Center, or Office)", cost: "$2,500 Copay/Surgery (After Deductible)", notes: "" },
+                { service: "Surgery Services (Outpatient)", cost: "$250 Copay/Service (After Deductible)", notes: "Includes surgeon, anesthesia, and any other incurred services." },
+                { service: "Outpatient Chemotherapy and Radiotherapy", cost: "$250 Copay/Visit (After Deductible)", notes: "" },
+                { service: "Infusion / Injection", cost: "$250 Copay/Visit (After Deductible)", notes: "" },
+                { service: "Dialysis", cost: "$250 Copay (After Deductible)", notes: "" },
+                { service: "Outpatient Labs (No Pre-certification Required)", cost: "$100 Copay (After Deductible)", notes: "" },
+                { service: "Preventive Service", cost: "100% Covered", notes: "Includes Annual Wellness Exams, Labs and Immunizations. See Preventative Care Guide." },
+                { service: "Maternity Services (Pregnancy, Maternity)", cost: "", notes: "" },
+                { service: "Routine Vaginal Delivery", cost: "$0 Copay", notes: "$0 Deductible" },
+                { service: "Routine C-Section Delivery", cost: "$2,500 Copay/Admission (After Deductible)", notes: "" },
+                { service: "All other Maternity Service", cost: "$50 Copay/Visit (After Deductible)", notes: "Other maternity services including office visits, lab work, radiology, prenatal/postnatal care etc. Excludes Genetic testing unless medically necessary." },
+                { service: "Home Health Care Visits (Pre-certification Required)", cost: "100% Covered", notes: "10 visits per Benefit Year." },
+                { service: "Durable Medical Equipment (DME) (Pre-certification Required)", cost: "$50 Copay/Item (After Deductible)", notes: "Copayment is applied per item received. 5 items/benefit period." },
+                { service: "Diabetic Nutritional Counseling", cost: "$0 Copay (After Deductible)", notes: "1 visit per Plan Year." },
+                { service: "Prosthetics (Pre-certification Required)", cost: "$50 Copay/Item (After Deductible)", notes: "1 item per Benefit Plan Year." },
+                { service: "Allergies - Shots", cost: "$25 Copay (After Deductible)", notes: "" },
+                { service: "Allergies - Visits/Testing", cost: "100% Covered", notes: "" },
+                { service: "Pharmacy - Retail: Preventive Medicine Rx - Generic or Brand", cost: "$0 Copay", notes: "See Formulary." },
+                { service: "Pharmacy - Retail: Generic Drugs - Urgent Care Rx", cost: "$0 Copay", notes: "30 day-supply at retail pharmacies." },
+                { service: "Pharmacy - Retail: Generic Drugs - Maintenance Rx", cost: "$0 Copay", notes: "30 day-supply at retail pharmacies. Mail order required for maintenance medication after initial 30 day-supply." },
+                { service: "Pharmacy - Retail: Preferred Brand Name Drugs", cost: "PAP Available", notes: "" },
+                { service: "Pharmacy - Retail: Non-Preferred Brand Name Drugs", cost: "PAP Available", notes: "" },
+                { service: "Pharmacy - Retail: Specialty Drugs", cost: "PAP Available", notes: "" },
+                { service: "Pharmacy - Mail Order: Generic Drugs", cost: "$0 Copay", notes: "90 day-supply maintenance medication." },
+                { service: "Pharmacy - Mail Order: Preferred Brand Name Drugs", cost: "Patient Assistance Plans Available", notes: "" },
+                { service: "Pharmacy - Mail Order: Non-Preferred Brand Name Drugs", cost: "Patient Assistance Plans Available", notes: "" },
+                { service: "Pharmacy - Mail Order: Specialty Drugs", cost: "Patient Assistance Plans Available", notes: "" }
+            ]
+        };
+
+        // DOM Elements
+        const formSection = document.getElementById('form-section');
+        const resultsSection = document.getElementById('results-section');
+        const analyzeButton = document.getElementById('analyze-button');
+        const startOverButton = document.getElementById('start-over-button');
+        const ageSelect = document.getElementById('age');
+        const deductibleSelect = document.getElementById('deductible');
+        const spouseRadios = document.getElementsByName('spouse');
+        const childrenRadios = document.getElementsByName('children');
+        const summaryInfo = document.getElementById('summary-info');
+        const premiumsDisplay = document.getElementById('premiums-display');
+        const benefitsDisplay = document.getElementById('benefits-display');
+
+        analyzeButton.addEventListener('click', () => {
+            const age = ageSelect.value;
+            const deductible = deductibleSelect.value;
+            const hasSpouse = document.querySelector('input[name="spouse"]:checked').value === 'Yes';
+            const hasChildren = document.querySelector('input[name="children"]:checked').value === 'Yes';
+
+            let planType;
+            let summaryPlanText;
+            if (hasSpouse && hasChildren) {
+                planType = 'Family';
+                summaryPlanText = 'Family';
+            } else if (hasSpouse) {
+                planType = 'Employee + Spouse';
+                summaryPlanText = 'Employee + Spouse';
+            } else if (hasChildren) {
+                planType = 'Employee + Child(ren)';
+                summaryPlanText = 'Employee + Children';
+            } else {
+                planType = 'Employee';
+                summaryPlanText = 'Employee';
+            }
+
+            // Look up premiums
+            const premiums = planData.rates[deductible][age][planType];
+            
+            // Update the results section with data
+            summaryInfo.innerHTML = `
+                <p><strong>Age:</strong> ${age}</p>
+                <p><strong>Plan Type:</strong> ${summaryPlanText}</p>
+                <p><strong>Deductible:</strong> $${deductible}</p>
+            `;
+
+            premiumsDisplay.innerHTML = `
+                <div class="bg-blue-50 border-l-4 border-blue-500 text-blue-800 p-4 rounded-md">
+                    <p class="font-bold">Monthly Premium</p>
+                    <p class="text-3xl font-extrabold mt-1">$${premiums}</p>
+                    <p class="text-sm text-blue-600">Cigna EPO (In-Network)</p>
+                </div>
+            `;
+
+            benefitsDisplay.innerHTML = '';
+            planData.benefits.forEach(benefit => {
+                const benefitDiv = document.createElement('div');
+                benefitDiv.className = 'py-4';
+                benefitDiv.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div class="font-semibold text-gray-700">${benefit.service}</div>
+                        <div class="text-right text-gray-900 font-medium">${benefit.cost}</div>
+                    </div>
+                    ${benefit.notes ? `<p class="mt-1 text-sm text-gray-500">${benefit.notes}</p>` : ''}
+                `;
+                benefitsDisplay.appendChild(benefitDiv);
+            });
+
+            // Show results, hide form
+            formSection.classList.add('hidden');
+            resultsSection.classList.remove('hidden');
+        });
+
+        startOverButton.addEventListener('click', () => {
+            // Reset form
+            ageSelect.value = '18-29';
+            deductibleSelect.value = '500';
+            document.getElementById('spouse-no').checked = true;
+            document.getElementById('children-no').checked = true;
+
+            // Show form, hide results
+            resultsSection.classList.add('hidden');
+            formSection.classList.remove('hidden');
+        });
+    </script>
+
+</body>
+</html>
